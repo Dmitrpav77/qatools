@@ -22,3 +22,10 @@ class CheckBoxPageLocators:
     TITLE_CHECKED_ITEMS = (By.XPATH, './/span[@class="rct-title"]')
     CHECKBOX_LIST = (By.CSS_SELECTOR, 'span[class="rct-checkbox"]')
     OUTPUT_SELECTED_CHECKBOXES = (By.CSS_SELECTOR, 'span[class="text-success"]')
+
+class RadioButtonPageLocators:
+
+    YES_BUTTON = (By.CSS_SELECTOR, 'label[for="yesRadio"]')
+    IMPRESSIVE_BUTTON = (By.CSS_SELECTOR, 'label[for="impressiveRadio"]')
+    NO_BUTTON = (By.CSS_SELECTOR, 'label[for="noRadio"]')
+    OUTPUT_RESULT = (By.CSS_SELECTOR, 'span[class="text-success"]')
