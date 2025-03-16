@@ -14,3 +14,11 @@ class TextBoxPageLocators:
     OUTPUT_EMAIL = (By.CSS_SELECTOR, 'p[id="email"]')
     OUTPUT_CURRENT_ADDRESS = (By.CSS_SELECTOR, 'p[id="currentAddress"]')
     OUTPUT_PERMANENT_ADDRESS = (By.CSS_SELECTOR, 'p[id="permanentAddress"]')
+
+class CheckBoxPageLocators:
+
+    EXPAND_ALL = (By.CSS_SELECTOR, 'button[title="Expand all"]')
+    CHECKED_ITEMS = (By.CSS_SELECTOR, 'svg[class="rct-icon rct-icon-check"]')
+    TITLE_CHECKED_ITEMS = (By.XPATH, './/span[@class="rct-title"]')
+    CHECKBOX_LIST = (By.CSS_SELECTOR, 'span[class="rct-checkbox"]')
+    OUTPUT_SELECTED_CHECKBOXES = (By.CSS_SELECTOR, 'span[class="text-success"]')
