@@ -1,10 +1,13 @@
 import random
+from itertools import count
+
 from selenium.webdriver.common.by import By
 import time
 from time import process_time
 
 from generator.generator import generated_person
-from locators.element_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators
+from locators.element_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
+    WebtablePageLocators
 from pages.base_page import BasePage
 
 
@@ -74,4 +77,73 @@ class RadioButtonPage(BasePage):
     def get_output_result(self):
         return self.element_is_present(self.locators.OUTPUT_RESULT).text
 
+class WebTablePage(BasePage):
+    locators = WebtablePageLocators()
+
+    def add_new_person(self, amount):
+        result_person = []
+        while amount != 0:
+            person = next(generated_person())
+            first_name = person.first_name
+            last_name = person.last_name
+            email = person.email
+            age = person.age
+            salary = person.salary
+            department = person.department
+            self.go_to_element(self.element_is_visible(self.locators.ADD_BUTTON))
+            self.element_is_visible(self.locators.ADD_BUTTON).click()
+            self.element_is_visible(self.locators.FIRST_NAME).send_keys(first_name)
+            self.element_is_visible(self.locators.LAST_NAME).send_keys(last_name)
+            self.element_is_visible(self.locators.EMAIL).send_keys(email)
+            self.element_is_visible(self.locators.AGE).send_keys(age)
+            self.element_is_visible(self.locators.SALARY).send_keys(salary)
+            self.element_is_visible(self.locators.DEPARTMENT).send_keys(department)
+            self.go_to_element(self.element_is_visible(self.locators.SUBMIT))
+            self.element_is_visible(self.locators.SUBMIT).click()
+            print(first_name)
+            amount -= 1
+            result_person = [first_name, last_name, str(age), email, str(salary), department]
+        return result_person
+
+    def find_person(self, search):
+        self.element_is_visible(self.locators.SEARCH_INPUT).click()
+        self.element_is_visible(self.locators.SEARCH_INPUT).clear()
+        self.element_is_visible(self.locators.SEARCH_INPUT).send_keys(search)
+        table_list = self.elements_are_present(self.locators.ALL_TABLE_ROWS)
+        data = []
+        for i in table_list:
+            data.append(i.text.splitlines())
+        return data
+
+    def edit_person(self):
+        self.element_is_visible(self.locators.EDIT_BUTTON).click()
+        person = next(generated_person())
+        first_name = person.first_name
+        last_name = person.last_name
+        email = person.email
+        age = person.age
+        salary = person.salary
+        department = person.department
+        self.element_is_visible(self.locators.FIRST_NAME).clear()
+        self.element_is_visible(self.locators.FIRST_NAME).send_keys(first_name)
+        self.element_is_visible(self.locators.LAST_NAME).clear()
+        self.element_is_visible(self.locators.LAST_NAME).send_keys(last_name)
+        self.element_is_visible(self.locators.EMAIL).clear()
+        self.element_is_visible(self.locators.EMAIL).send_keys(email)
+        self.element_is_visible(self.locators.AGE).clear()
+        self.element_is_visible(self.locators.AGE).send_keys(age)
+        self.element_is_visible(self.locators.SALARY).clear()
+        self.element_is_visible(self.locators.SALARY).send_keys(salary)
+        self.element_is_visible(self.locators.DEPARTMENT).clear()
+        self.element_is_visible(self.locators.DEPARTMENT).send_keys(department)
+        self.go_to_element(self.element_is_visible(self.locators.SUBMIT))
+        self.element_is_visible(self.locators.SUBMIT).click()
+        return [first_name, last_name, str(age), email, str(salary), department]
+
+    def check_search_result(self):
+        if self.element_is_present(self.locators.NO_ROWS_FOUND).text == "No rows found":
+            return "No rows found"
+
+    def delete_person(self):
+        self.element_is_visible(self.locators.DELETE_BUTTON).click()
 

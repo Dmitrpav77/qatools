@@ -1,7 +1,7 @@
 import time
 from time import process_time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
 
 
 class TestElements:
@@ -40,4 +40,43 @@ class TestElements:
             assert radiobutton_yes == output_result_yes, "The radiobutton 'Yes' had not been selected"
             assert radiobutton_impressive == output_result_impressive, "The radiobutton 'Impressive' had not been selected"
             assert radiobutton_no == output_result_no, "The radiobutton 'No' had not been selected"
+
+    class TestWebTable:
+        def test_web_table_add_person(self, driver):
+            webtable_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            webtable_page.open()
+            new_person = webtable_page.add_new_person(1)
+            time.sleep(3)
+            find_new_person = webtable_page.find_person(new_person[0])
+            time.sleep(3)
+            assert new_person in find_new_person, 'New person had not been found'
+
+
+        def test_web_table_edit_person(self, driver):
+            webtable_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            webtable_page.open()
+            new_person = webtable_page.add_new_person(1)
+            webtable_page.find_person(new_person[0])
+            edited_person = webtable_page.edit_person()
+            find_edited_person = webtable_page.find_person(edited_person[0])
+            assert edited_person in find_edited_person
+
+
+        def test_web_table_delete_person(self, driver):
+            webtable_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            webtable_page.open()
+            new_person = webtable_page.add_new_person(1)
+            webtable_page.find_person(new_person[0])
+            webtable_page.delete_person()
+            webtable_page.find_person(new_person[0])
+            search_result = webtable_page.check_search_result()
+            print(search_result)
+            assert search_result == "No rows found"
+
+        def test_web_table_change_count_rows(self, driver):
+            webtable_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            webtable_page.open()
+            webtable_page.choose_count_rows()
+            time.sleep(5)
+
 
