@@ -1,3 +1,4 @@
+import random
 from calendar import firstweekday
 
 from data.data import Person
@@ -8,7 +9,12 @@ faker_ru = Faker('ru_RU')
 def generated_person():
     yield Person(
         full_name=faker_ru.first_name_female() + ' ' + faker_ru.middle_name() + ' ' + faker_ru.last_name_female(),
+        first_name=faker_ru.first_name_female(),
+        last_name=faker_ru.last_name_female(),
         email=faker_ru.email(),
+        salary=random.randint(10000, 500000),
+        age=random.randint(20, 50),
+        department=faker_ru.job_female(),
         current_address=faker_ru.address(),
         permanent_address=faker_ru.address(),
     )
