@@ -29,3 +29,35 @@ class RadioButtonPageLocators:
     IMPRESSIVE_BUTTON = (By.CSS_SELECTOR, 'label[for="impressiveRadio"]')
     NO_BUTTON = (By.CSS_SELECTOR, 'label[for="noRadio"]')
     OUTPUT_RESULT = (By.CSS_SELECTOR, 'span[class="text-success"]')
+
+class WebtablePageLocators:
+
+    # add new person
+    ADD_BUTTON = (By.CSS_SELECTOR, 'button[id="addNewRecordButton"]')
+    FIRST_NAME = (By.CSS_SELECTOR, 'input[id="firstName"]')
+    LAST_NAME = (By.CSS_SELECTOR, 'input[id="lastName"]')
+    EMAIL = (By.CSS_SELECTOR, 'input[id="userEmail"]')
+    AGE = (By.CSS_SELECTOR, 'input[id="age"]')
+    SALARY = (By.CSS_SELECTOR, 'input[id="salary"]')
+    DEPARTMENT = (By.CSS_SELECTOR, 'input[id="department"]')
+    SUBMIT = (By.CSS_SELECTOR, 'button[id="submit"]')
+
+    # find person
+    SEARCH_INPUT = (By.CSS_SELECTOR, 'input[id="searchBox"]')
+    ALL_TABLE_ROWS = (By.CSS_SELECTOR, 'div[class="rt-tr-group"]')
+    NO_ROWS_FOUND = (By.CSS_SELECTOR, 'div[class="rt-noData"]')
+
+
+    # edit person
+    EDIT_BUTTON = (By.CSS_SELECTOR, 'span[title="Edit"]')
+
+    # delete person
+    DELETE_BUTTON = (By.CSS_SELECTOR, 'span[title="Delete"]')
+
+    # rows
+    COUNT_ROWS_5 = (By.CSS_SELECTOR, 'select[aria-label="rows per page"] > option[value="5"]')
+    COUNT_ROWS_10 = (By.CSS_SELECTOR, 'select[aria-label="rows per page"] > option[value="10"]')
+    COUNT_ROWS_20 = (By.CSS_SELECTOR, 'select[aria-label="rows per page"] > option[value="20"]')
+    COUNT_ROWS_25 = (By.CSS_SELECTOR, 'select[aria-label="rows per page"] > option[value="25"]')
+    COUNT_ROWS_50 = (By.CSS_SELECTOR, 'select[aria-label="rows per page"] > option[value="50"]')
+    COUNT_ROWS_100 = (By.CSS_SELECTOR, 'select[aria-label="rows per page"] > option[value="100"]')
