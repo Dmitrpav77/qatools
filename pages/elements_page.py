@@ -7,7 +7,7 @@ from time import process_time
 
 from generator.generator import generated_person
 from locators.element_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    WebtablePageLocators
+    WebtablePageLocators, ButtonsPageLocators
 from pages.base_page import BasePage
 
 
@@ -146,4 +146,19 @@ class WebTablePage(BasePage):
 
     def delete_person(self):
         self.element_is_visible(self.locators.DELETE_BUTTON).click()
+
+class ButtonsPage(BasePage):
+    locators = ButtonsPageLocators()
+
+    def double_click_on_button(self):
+        self.double_click(self.element_is_visible(self.locators.DOUBLE_CLICK))
+        return self.element_is_present(self.locators.OUTPUT_DOUBLE_CLICK).text
+
+    def right_click_on_button(self):
+        self.right_click(self.element_is_visible(self.locators.RIGHT_CLICK))
+        return self.element_is_present(self.locators.OUTPUT_RIGHT_CLICK).text
+
+    def dynamic_click_on_button(self):
+        self.dynamic_click(self.element_is_visible(self.locators.DYNAMIC_CLICK))
+        return self.element_is_present(self.locators.OUTPUT_DYNAMIC_CLICK).text
 
