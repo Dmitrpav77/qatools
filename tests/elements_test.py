@@ -1,7 +1,7 @@
 import time
 from time import process_time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
 
 
 class TestElements:
@@ -73,10 +73,15 @@ class TestElements:
             print(search_result)
             assert search_result == "No rows found"
 
-        def test_web_table_change_count_rows(self, driver):
-            webtable_page = WebTablePage(driver, 'https://demoqa.com/webtables')
-            webtable_page.open()
-            webtable_page.choose_count_rows()
-            time.sleep(5)
+    class TestButtons:
+        def test_buttons_click(self, driver):
+            buttons_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
+            buttons_page.open()
+            double_click = buttons_page.double_click_on_button()
+            right_click = buttons_page.right_click_on_button()
+            dynamic_click = buttons_page.dynamic_click_on_button()
+            assert double_click == "You have done a double click", 'There is no match after double click'
+            assert right_click == "You have done a right click", 'There is not match after right click'
+            assert dynamic_click == "You have done a dynamic click", 'There is not match after dynamic click'
 
 
