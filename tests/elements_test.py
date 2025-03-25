@@ -1,7 +1,7 @@
 import time
 from time import process_time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage
 
 
 class TestElements:
@@ -84,4 +84,70 @@ class TestElements:
             assert right_click == "You have done a right click", 'There is not match after right click'
             assert dynamic_click == "You have done a dynamic click", 'There is not match after dynamic click'
 
+    class TestLinks:
+        def test_new_tab_simple(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            href_link = links_page.open_new_tab_simple_link()
+            links_page.switch_to_new_blank(1)
+            url_new_tab = links_page.check_current_url()
+            assert href_link == url_new_tab, 'The url of new tab does not match to href'
+
+
+        def test_new_tab_dynamic(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            href_link = links_page.open_new_tab_dynamic_link()
+            links_page.switch_to_new_blank(1)
+            url_new_tab = links_page.check_current_url()
+            assert href_link == url_new_tab, 'The url of new tab does not match to href'
+
+
+        def test_link_created(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            status_created = links_page.open_link_created()
+            assert status_created == 201, 'The status code of response is not 201'
+
+
+        def test_link_forbidden(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            status_forbidden = links_page.open_link_forbidden()
+            assert status_forbidden == 403, 'The status code of response is not 403'
+
+
+        def test_link_moved(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            status_moved = links_page.open_link_moved()
+            assert status_moved == 301, 'The status code of response is not 301'
+
+
+        def test_link_not_found(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            status_not_found = links_page.open_link_not_found()
+            assert status_not_found == 404, 'The status code of response is not 404'
+
+
+        def test_link_no_content(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            status_no_content = links_page.open_link_no_content()
+            assert status_no_content == 204, 'The status code of response is not 204'
+
+
+        def test_link_bad_request(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            status_bad_request = links_page.open_link_bad_request()
+            assert status_bad_request == 400, 'The status code of response is not 400'
+
+
+        def test_link_unauthorized(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            status_unauthorized = links_page.open_link_unauthorized()
+            assert status_unauthorized == 401, 'The status code of response is not 401'
 

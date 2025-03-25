@@ -63,3 +63,16 @@ class ButtonsPageLocators:
     OUTPUT_RIGHT_CLICK = (By.CSS_SELECTOR, 'p[id="rightClickMessage"]')
     OUTPUT_DYNAMIC_CLICK = (By.CSS_SELECTOR, 'p[id="dynamicClickMessage"]')
 
+class LinksPageLocators:
+
+    SIMPLE_LINK = (By.CSS_SELECTOR, 'a[id="simpleLink"]')
+    DYNAMIC_LINK = (By.CSS_SELECTOR, 'a[id="dynamicLink"]')
+    LINK_STATUS_CREATED = (By.CSS_SELECTOR, 'a[id="created"]')
+    LINK_STATUS_NO_CONTENT = (By.CSS_SELECTOR, 'a[id="no-content"]')
+    LINK_STATUS_MOVED = (By.CSS_SELECTOR, 'a[id="moved"]')
+    LINK_STATUS_BAD_REQUEST = (By.CSS_SELECTOR, 'a[id="bad-request"]')
+    LINK_STATUS_UNAUTHORIZED = (By.CSS_SELECTOR, 'a[id="unauthorized"]')
+    LINK_STATUS_FORBIDDEN = (By.CSS_SELECTOR, 'a[id="forbidden"]')
+    LINK_STATUS_NOT_FOUND = (By.CSS_SELECTOR, 'a[id="invalid-url"]')
+
+

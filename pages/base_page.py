@@ -50,3 +50,6 @@ class BasePage:
         action.move_to_element(element)
         action.click(element)
         action.perform()
+
+    def switch_to_new_blank(self, num):
+        self.driver.switch_to.window(self.driver.window_handles[num])
