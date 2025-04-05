@@ -1,7 +1,8 @@
 import time
 from time import process_time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
+    BrokenLinksPage
 
 
 class TestElements:
@@ -150,4 +151,34 @@ class TestElements:
             links_page.open()
             status_unauthorized = links_page.open_link_unauthorized()
             assert status_unauthorized == 401, 'The status code of response is not 401'
+
+
+    class TestBrokenLinks:
+        def test_image_is_not_broken(self, driver):
+            links_page = BrokenLinksPage(driver, 'https://demoqa.com/broken')
+            links_page.open()
+            picture_is_not_broken = links_page.get_size_valid_image()
+            assert True == picture_is_not_broken, 'The picture is broken'
+
+
+        def test_image_is_broken(self, driver):
+            links_page = BrokenLinksPage(driver, 'https://demoqa.com/broken')
+            links_page.open()
+            picture_is_broken = links_page.get_size_broken_image()
+            assert True == picture_is_broken, 'The picture is not broken'
+
+
+        def test_valid_link(self, driver):
+            links_page = BrokenLinksPage(driver, 'https://demoqa.com/broken')
+            links_page.open()
+            status_code, url = links_page.open_valid_link()
+            assert status_code == 200 and url == "https://demoqa.com/", "The link is not valid"
+
+
+        def test_broken_link(self, driver):
+            links_page = BrokenLinksPage(driver, 'https://demoqa.com/broken')
+            links_page.open()
+            status_code, url = links_page.open_broken_link()
+            assert status_code == 500, "The status code is not correct"
+
 

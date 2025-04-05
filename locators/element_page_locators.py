@@ -75,4 +75,11 @@ class LinksPageLocators:
     LINK_STATUS_FORBIDDEN = (By.CSS_SELECTOR, 'a[id="forbidden"]')
     LINK_STATUS_NOT_FOUND = (By.CSS_SELECTOR, 'a[id="invalid-url"]')
 
+class BrokenLinksPageLocators:
+
+    VALID_PICTURE = (By.XPATH, '//div[2]/header/a/img')
+    BROKEN_PICTURE = (By.XPATH, '//div[2]/img[2]')
+    VALID_LINK = (By.CSS_SELECTOR, 'a[href="http://demoqa.com"]')
+    BROKEN_LINK = (By.CSS_SELECTOR, 'a[href="http://the-internet.herokuapp.com/status_codes/500"]')
+
 

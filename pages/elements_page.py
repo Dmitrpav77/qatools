@@ -8,7 +8,7 @@ from time import process_time
 
 from generator.generator import generated_person
 from locators.element_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    WebtablePageLocators, ButtonsPageLocators, LinksPageLocators
+    WebtablePageLocators, ButtonsPageLocators, LinksPageLocators, BrokenLinksPageLocators
 from pages.base_page import BasePage
 
 
@@ -238,3 +238,39 @@ class LinksPage(BasePage):
         link.click()
         request = requests.get('https://demoqa.com/invalid-url')
         return request.status_code
+
+
+class BrokenLinksPage(BasePage):
+    locators = BrokenLinksPageLocators()
+
+    def get_size_valid_image(self):
+        self.go_to_element(self.element_is_visible(self.locators.VALID_PICTURE))
+        size = self.element_is_visible(self.locators.VALID_PICTURE).size
+        if size['height'] > 16 and size['width'] > 16:
+            return True
+
+    def get_size_broken_image(self):
+        self.go_to_element(self.element_is_visible(self.locators.BROKEN_PICTURE))
+        size = self.element_is_visible(self.locators.BROKEN_PICTURE).size
+        if size['height'] == 16 and size['width'] == 16:
+            return True
+
+    def open_valid_link(self):
+        self.go_to_element(self.element_is_visible(self.locators.VALID_LINK))
+        href_valid_link = self.element_is_visible(self.locators.VALID_LINK).get_attribute('href')
+        request = requests.get(href_valid_link)
+        status_code = request.status_code
+        self.element_is_visible(self.locators.VALID_LINK).click()
+        current_url = self.driver.current_url
+        return status_code, current_url
+
+
+    def open_broken_link(self):
+        self.go_to_element(self.element_is_visible(self.locators.BROKEN_LINK))
+        href_broken_link = self.element_is_visible(self.locators.BROKEN_LINK).get_attribute('href')
+        request = requests.get(href_broken_link)
+        status_code = request.status_code
+        self.element_is_visible(self.locators.BROKEN_LINK).click()
+        current_url = self.driver.current_url
+        return status_code, current_url
+
