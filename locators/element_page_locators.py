@@ -82,4 +82,8 @@ class BrokenLinksPageLocators:
     VALID_LINK = (By.CSS_SELECTOR, 'a[href="http://demoqa.com"]')
     BROKEN_LINK = (By.CSS_SELECTOR, 'a[href="http://the-internet.herokuapp.com/status_codes/500"]')
 
+class UploadDownloadPageLocators:
+    UPLOAD_INPUT = (By.CSS_SELECTOR, 'input[id="uploadFile"]')
+    DOWNLOAD_BUTTON = (By.CSS_SELECTOR, 'a[id="downloadButton"]')
+    UPLOADED_FILE_PATH = (By.CSS_SELECTOR, 'p[id="uploadedFilePath"]')
 

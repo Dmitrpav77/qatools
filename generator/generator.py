@@ -18,3 +18,10 @@ def generated_person():
         current_address=faker_ru.address(),
         permanent_address=faker_ru.address(),
     )
+
+def generated_file(type_file):
+    path = rf'O:\pet_project\example{random.randint(0, 999)}.{type_file}'
+    file = open(path, 'w+')
+    file.write('Hello World!')
+    file.close()
+    return file.name, path

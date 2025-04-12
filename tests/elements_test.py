@@ -2,7 +2,7 @@ import time
 from time import process_time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
-    BrokenLinksPage
+    BrokenLinksPage, UploadDownloadPage
 
 
 class TestElements:
@@ -182,3 +182,18 @@ class TestElements:
             assert status_code == 500, "The status code is not correct"
 
 
+    class TestUploadDownloadPage:
+        def test_upload_file(self, driver):
+            upload_page = UploadDownloadPage(driver, 'https://demoqa.com/upload-download')
+            upload_page.open()
+            input_file = upload_page.upload_file()
+            output_file_name = upload_page.uploaded_file_name()
+            print(input_file)
+            assert input_file == output_file_name, 'the file has not been uploaded'
+
+
+        def test_download_file(self, driver):
+            download_page = UploadDownloadPage(driver, 'https://demoqa.com/upload-download')
+            download_page.open()
+            check = download_page.download_file()
+            assert check is True, 'the file has not been downloaded'
