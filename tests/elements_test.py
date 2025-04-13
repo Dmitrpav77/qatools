@@ -2,7 +2,7 @@ import time
 from time import process_time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
-    BrokenLinksPage, UploadDownloadPage
+    BrokenLinksPage, UploadDownloadPage, DynamicPropertiesPage
 
 
 class TestElements:
@@ -197,3 +197,24 @@ class TestElements:
             download_page.open()
             check = download_page.download_file()
             assert check is True, 'the file has not been downloaded'
+
+
+    class TestDynamicPropertiesPage:
+        def test_dynamic_button(self, driver):
+            dynamic_button_page = DynamicPropertiesPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_button_page.open()
+            clickable_button_after_5_sec = dynamic_button_page.dynamic_button_click()
+            assert clickable_button_after_5_sec == True, 'The button is not clickable after 5 seconds'
+
+        def test_color_change_button(self, driver):
+            dynamic_button_page = DynamicPropertiesPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_button_page.open()
+            color_before, color_after = dynamic_button_page.color_change_click()
+            assert color_before != color_after, 'The color is not changed or the site has been loading for too long'
+
+
+        def test_visible_button_after_5_sec(self, driver):
+            dynamic_button_page = DynamicPropertiesPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_button_page.open()
+            visible_button_after_5_sec = dynamic_button_page.visible_button_after_5_sec()
+            assert visible_button_after_5_sec == True, 'The button is not visible after 5 seconds'

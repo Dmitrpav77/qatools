@@ -5,11 +5,11 @@ import random
 import requests
 from selenium.webdriver.common.by import By
 import time
-from time import process_time
-
+from selenium.common.exceptions import TimeoutException
 from generator.generator import generated_person, generated_file
 from locators.element_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    WebtablePageLocators, ButtonsPageLocators, LinksPageLocators, BrokenLinksPageLocators, UploadDownloadPageLocators
+    WebtablePageLocators, ButtonsPageLocators, LinksPageLocators, BrokenLinksPageLocators, UploadDownloadPageLocators, \
+    DynamicPropertiesPageLocators
 from pages.base_page import BasePage
 
 
@@ -303,3 +303,35 @@ class UploadDownloadPage(BasePage):
             f.close()
         os.remove(file_path)
         return check_file
+
+
+class DynamicPropertiesPage(BasePage):
+    locators = DynamicPropertiesPageLocators()
+
+    def dynamic_button_click(self):
+        self.go_to_element(self.element_is_visible(self.locators.DYNAMIC_BUTTON))
+        try:
+            self.element_is_clickable(self.locators.DYNAMIC_BUTTON)
+        except TimeoutException:
+            return False
+        return True
+
+
+    def color_change_click(self):
+        color_change_button = self.element_is_present(self.locators.COLOR_CHANGE_BUTTON)
+        color_change_button_before = color_change_button.value_of_css_property('color')
+        time.sleep(5)
+        color_change_button_after = color_change_button.value_of_css_property('color')
+        return color_change_button_before, color_change_button_after
+
+
+    def visible_button_after_5_sec(self):
+        # if button is not visible after 5 seconds, we get TimeoutException
+        try:
+            self.element_is_visible(self.locators.VISIBLE_AFTER_BUTTON)
+        except TimeoutException:
+            return False
+        return True
+
+
+
