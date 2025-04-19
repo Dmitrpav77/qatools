@@ -93,3 +93,4 @@ class DynamicPropertiesPageLocators:
     VISIBLE_AFTER_BUTTON = (By.CSS_SELECTOR, 'button[id="visibleAfter"]')
 
 
+

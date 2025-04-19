@@ -2,7 +2,7 @@ import time
 from time import process_time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
-    BrokenLinksPage, UploadDownloadPage, DynamicPropertiesPage
+    BrokenLinksPage, UploadDownloadPage, DynamicPropertiesPage, FormsPage
 
 
 class TestElements:

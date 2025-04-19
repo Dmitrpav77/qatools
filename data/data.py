@@ -8,6 +8,8 @@ class Person:
     last_name: str = None
     email: str = None
     salary: int = None
+    mobile: str = None
+    date_of_birth: str = None
     age: int = None
     department: str = None
     current_address: str = None
