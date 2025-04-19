@@ -75,4 +75,22 @@ class LinksPageLocators:
     LINK_STATUS_FORBIDDEN = (By.CSS_SELECTOR, 'a[id="forbidden"]')
     LINK_STATUS_NOT_FOUND = (By.CSS_SELECTOR, 'a[id="invalid-url"]')
 
+class BrokenLinksPageLocators:
+
+    VALID_PICTURE = (By.XPATH, '//div[2]/header/a/img')
+    BROKEN_PICTURE = (By.XPATH, '//div[2]/img[2]')
+    VALID_LINK = (By.CSS_SELECTOR, 'a[href="http://demoqa.com"]')
+    BROKEN_LINK = (By.CSS_SELECTOR, 'a[href="http://the-internet.herokuapp.com/status_codes/500"]')
+
+class UploadDownloadPageLocators:
+    UPLOAD_INPUT = (By.CSS_SELECTOR, 'input[id="uploadFile"]')
+    DOWNLOAD_BUTTON = (By.CSS_SELECTOR, 'a[id="downloadButton"]')
+    UPLOADED_FILE_PATH = (By.CSS_SELECTOR, 'p[id="uploadedFilePath"]')
+
+class DynamicPropertiesPageLocators:
+    DYNAMIC_BUTTON = (By.CSS_SELECTOR, 'button[id="enableAfter"]')
+    COLOR_CHANGE_BUTTON = (By.CSS_SELECTOR, 'button[id="colorChange"]')
+    VISIBLE_AFTER_BUTTON = (By.CSS_SELECTOR, 'button[id="visibleAfter"]')
+
+
 

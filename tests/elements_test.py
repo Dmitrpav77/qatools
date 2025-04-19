@@ -1,7 +1,8 @@
 import time
 from time import process_time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
+    BrokenLinksPage, UploadDownloadPage, DynamicPropertiesPage, FormsPage
 
 
 class TestElements:
@@ -151,3 +152,69 @@ class TestElements:
             status_unauthorized = links_page.open_link_unauthorized()
             assert status_unauthorized == 401, 'The status code of response is not 401'
 
+
+    class TestBrokenLinks:
+        def test_image_is_not_broken(self, driver):
+            links_page = BrokenLinksPage(driver, 'https://demoqa.com/broken')
+            links_page.open()
+            picture_is_not_broken = links_page.get_size_valid_image()
+            assert True == picture_is_not_broken, 'The picture is broken'
+
+
+        def test_image_is_broken(self, driver):
+            links_page = BrokenLinksPage(driver, 'https://demoqa.com/broken')
+            links_page.open()
+            picture_is_broken = links_page.get_size_broken_image()
+            assert True == picture_is_broken, 'The picture is not broken'
+
+
+        def test_valid_link(self, driver):
+            links_page = BrokenLinksPage(driver, 'https://demoqa.com/broken')
+            links_page.open()
+            status_code, url = links_page.open_valid_link()
+            assert status_code == 200 and url == "https://demoqa.com/", "The link is not valid"
+
+
+        def test_broken_link(self, driver):
+            links_page = BrokenLinksPage(driver, 'https://demoqa.com/broken')
+            links_page.open()
+            status_code, url = links_page.open_broken_link()
+            assert status_code == 500, "The status code is not correct"
+
+
+    class TestUploadDownloadPage:
+        def test_upload_file(self, driver):
+            upload_page = UploadDownloadPage(driver, 'https://demoqa.com/upload-download')
+            upload_page.open()
+            input_file = upload_page.upload_file()
+            output_file_name = upload_page.uploaded_file_name()
+            print(input_file)
+            assert input_file == output_file_name, 'the file has not been uploaded'
+
+
+        def test_download_file(self, driver):
+            download_page = UploadDownloadPage(driver, 'https://demoqa.com/upload-download')
+            download_page.open()
+            check = download_page.download_file()
+            assert check is True, 'the file has not been downloaded'
+
+
+    class TestDynamicPropertiesPage:
+        def test_dynamic_button(self, driver):
+            dynamic_button_page = DynamicPropertiesPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_button_page.open()
+            clickable_button_after_5_sec = dynamic_button_page.dynamic_button_click()
+            assert clickable_button_after_5_sec == True, 'The button is not clickable after 5 seconds'
+
+        def test_color_change_button(self, driver):
+            dynamic_button_page = DynamicPropertiesPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_button_page.open()
+            color_before, color_after = dynamic_button_page.color_change_click()
+            assert color_before != color_after, 'The color is not changed or the site has been loading for too long'
+
+
+        def test_visible_button_after_5_sec(self, driver):
+            dynamic_button_page = DynamicPropertiesPage(driver, 'https://demoqa.com/dynamic-properties')
+            dynamic_button_page.open()
+            visible_button_after_5_sec = dynamic_button_page.visible_button_after_5_sec()
+            assert visible_button_after_5_sec == True, 'The button is not visible after 5 seconds'
