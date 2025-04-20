@@ -30,3 +30,12 @@ class FramePageLocators:
     PARENT_FRAME_TEXT = (By.CSS_SELECTOR, 'body')
     CHILD_FRAME = (By.CSS_SELECTOR, 'iframe[srcdoc="<p>Child Iframe</p>"]')
     CHILD_FRAME_TEXT = (By.CSS_SELECTOR, 'body')
+
+
+class ModalDialogPageLocators:
+    SMALL_MODAL = (By.CSS_SELECTOR, 'button[id="showSmallModal"]')
+    SMALL_MODAL_TEXT = (By.CSS_SELECTOR, 'div[class="modal-body"]')
+    CLOSE_SMALL_MODAL_DIALOG = (By.CSS_SELECTOR, 'button[id="closeSmallModal"]')
+    LARGE_MODAL = (By.CSS_SELECTOR, 'button[id="showLargeModal"]')
+    LARGE_MODAL_TEXT = (By.CSS_SELECTOR, 'div[class="modal-body"] p')
+    CLOSE_LARGE_MODAL_DIALOG = (By.CSS_SELECTOR, 'button[id="closeLargeModal"]')

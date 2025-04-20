@@ -1,6 +1,6 @@
 import time
 
-from pages.alerts_frame_and_windows_page import AlertsPage, BrowserWindowPage, FramePage
+from pages.alerts_frame_and_windows_page import AlertsPage, BrowserWindowPage, FramePage, ModalDialogPage
 
 
 class TestAlertsFrameWindows:
@@ -77,3 +77,20 @@ class TestAlertsFrameWindows:
             parent_text, child_text = nested_frame_page.check_nested_frame()
             assert parent_text == 'Parent frame'
             assert child_text == 'Child Iframe'
+
+
+    class TestModalDialog:
+        def test_modal_dialog(self, driver):
+            modal_dialog_page = ModalDialogPage(driver, 'https://demoqa.com/modal-dialogs')
+            modal_dialog_page.open()
+            small_modal_dialog_text = modal_dialog_page.check_small_modal()
+            large_modal_dialog_text = modal_dialog_page.check_large_modal()
+            assert small_modal_dialog_text == "This is a small modal. It has very less content", 'the small modal dialog has not been opened'
+            assert large_modal_dialog_text == ("Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+                                               "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
+                                               "when an unknown printer took a galley of type and scrambled it to make a type "
+                                               "specimen book. It has survived not only five centuries, but also the leap into "
+                                               "electronic typesetting, remaining essentially unchanged. It was popularised in the "
+                                               "1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more "
+                                               "recently with desktop publishing software like Aldus PageMaker including versions of "
+                                               "Lorem Ipsum."), 'the large modal dialog has not been opened'
