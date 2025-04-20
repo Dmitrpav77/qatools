@@ -1,8 +1,11 @@
 import random
 import time
+from logging import lastResort
+
 from selenium.webdriver.common.keys import Keys
 
-from locators.alerts_frame_and_windows_locators import AlertsPageLocators, BrowserWindowsPageLocators, FramePageLocators
+from locators.alerts_frame_and_windows_locators import AlertsPageLocators, BrowserWindowsPageLocators, \
+    FramePageLocators, ModalDialogPageLocators
 from pages.base_page import BasePage
 
 
@@ -110,6 +113,27 @@ class FramePage(BasePage):
         self.driver.switch_to.frame(child_frame)
         child_text = self.element_is_present(self.locators.CHILD_FRAME_TEXT).text
         return parent_text, child_text
+
+
+class ModalDialogPage(BasePage):
+    locators = ModalDialogPageLocators()
+
+    def check_small_modal(self):
+        small_modal_dialog = self.element_is_visible(self.locators.SMALL_MODAL)
+        small_modal_dialog.click()
+        small_modal = self.element_is_present(self.locators.SMALL_MODAL_TEXT)
+        small_modal_text = small_modal.text
+        self.element_is_visible(self.locators.CLOSE_SMALL_MODAL_DIALOG).click()
+        return small_modal_text
+
+
+    def check_large_modal(self):
+        large_modal_dialog = self.element_is_visible(self.locators.LARGE_MODAL)
+        large_modal_dialog.click()
+        large_modal_text = self.element_is_present(self.locators.LARGE_MODAL_TEXT).text
+        self.element_is_visible(self.locators.CLOSE_LARGE_MODAL_DIALOG).click()
+        return large_modal_text
+
 
 
 
