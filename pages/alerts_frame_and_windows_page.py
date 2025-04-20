@@ -2,7 +2,7 @@ import random
 import time
 from selenium.webdriver.common.keys import Keys
 
-from locators.alerts_frame_and_windows_locators import AlertsPageLocators, BrowserWindowsPageLocators
+from locators.alerts_frame_and_windows_locators import AlertsPageLocators, BrowserWindowsPageLocators, FramePageLocators
 from pages.base_page import BasePage
 
 
@@ -76,6 +76,33 @@ class AlertsPage(BasePage):
     def check_result_prompt_alert(self):
         result = self.element_is_present(self.locators.PROMPT_BOX_RESULT)
         return result.text
+
+
+class FramePage(BasePage):
+    locators = FramePageLocators()
+
+    def check_frame_1(self):
+        self.driver.switch_to.default_content()
+        frame = self.element_is_visible(self.locators.FIRST_FRAME)
+        self.go_to_element(frame)
+        width = frame.get_attribute('width')
+        height = frame.get_attribute('height')
+        self.driver.switch_to.frame(frame)
+        result = self.element_is_present(self.locators.RESULT_FRAME_TEXT)
+        return [result.text, height, width]
+
+
+    def check_frame_2(self):
+        self.driver.switch_to.default_content()
+        frame = self.element_is_visible(self.locators.SECOND_FRAME)
+        self.go_to_element(frame)
+        width = frame.get_attribute('width')
+        height = frame.get_attribute('height')
+        self.driver.switch_to.frame(frame)
+        result = self.element_is_present(self.locators.RESULT_FRAME_TEXT)
+        return [result.text, height, width]
+
+
 
 
 
