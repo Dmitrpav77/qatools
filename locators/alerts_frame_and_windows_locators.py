@@ -39,3 +39,4 @@ class ModalDialogPageLocators:
     LARGE_MODAL = (By.CSS_SELECTOR, 'button[id="showLargeModal"]')
     LARGE_MODAL_TEXT = (By.CSS_SELECTOR, 'div[class="modal-body"] p')
     CLOSE_LARGE_MODAL_DIALOG = (By.CSS_SELECTOR, 'button[id="closeLargeModal"]')
+
